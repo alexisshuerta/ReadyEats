@@ -1,14 +1,13 @@
-// Importing express, mongoose, and body parser
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
-//
-const db = require("./config/keys").mongoURI;var app = express();
+const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Connect to MongoDB
+const db = require("./config/keys").mongoURI;
+
 mongoose
   .connect(
     db,
@@ -17,7 +16,7 @@ mongoose
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 
-const port = process.env.PORT || 5005; // process.env.port is Heroku's port if you choose to deploy the app there
+const port = process.env.PORT || 5005;
 
 app.listen(port, () => console.log(`Ready Eats server and running on port ${port} !`));
 
