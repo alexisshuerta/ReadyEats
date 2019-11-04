@@ -59,7 +59,7 @@ router.post("/login", (req, res) => {
                     id: user.id,
                     name: user.name
                 };
-                
+
                 jwt.sign(
                     payload,
                     keys.secretOrKey,
@@ -81,3 +81,5 @@ router.post("/login", (req, res) => {
         });
     });
 });
+
+module.exports = router;
