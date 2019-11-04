@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 
 // Import routes
-const users = require("./ready-eats-api/routes/users");
-const index = require("./ready-eats-api/routes/index");
+const users = require("./routes/api/users");
+const index = require("./routes/api/index");
 
 // General setup
 const app = express();
