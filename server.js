@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-// import routes
+// Import routes
 const users = require("./ready-eats-api/routes/users");
 const index = require("./ready-eats-api/routes/index");
 
+// General setup
 const app = express();
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -26,9 +26,10 @@ mongoose
 app.use(passport.initialize());
 require("./config/passport")(passport);
 
-// Routes
+// Set routes
 app.use("/", index);
 app.use("/api/users", users);
 
+// Start server
 const port = process.env.PORT || 5005;
 app.listen(port, () => console.log(`Ready Eats server and running on port ${port} !`));

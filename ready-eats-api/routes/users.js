@@ -4,11 +4,15 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys")
 
+// Import input validators
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 const User = require("../../models/User");
 
+// @route POST api/users/register
+// @desc Register user
+// @access Public
 router.post("/register", (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -21,6 +25,7 @@ router.post("/register", (req, res) => {
             const newUser = new User({
                 name: req.body.name,
                 email: req.body.email,
+                role: req.body.role,
                 password: req.body.password
             });
 
@@ -38,6 +43,9 @@ router.post("/register", (req, res) => {
     });
 });
 
+// @route POST api/users/login
+// @desc Login user and return JWT token
+// @access Public
 router.post("/login", (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
 
@@ -57,7 +65,8 @@ router.post("/login", (req, res) => {
             if (isMatch) {
                 const payload = {
                     id: user.id,
-                    name: user.name
+                    name: user.name,
+                    role: user.role
                 };
 
                 jwt.sign(
