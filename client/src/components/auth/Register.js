@@ -10,28 +10,31 @@ class Register extends Component {
             email: "",
             password: "",
             password2: "",
-            isBusiness: "false",
+            isBusiness: false,
             errors: {}
         };
-        this.handleInputChange = this.handleInputChange.bind(this);
+        this.toggleChange = this.toggleChange.bind(this);
     };
 
     onChange = e => {
-        const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        this.setState({ [e.target.id]: value });
+        this.setState({ [e.target.id]: e.target.value });
     };
+
+    toggleChange = e => {
+        this.setState({ isBusiness: e });
+    }
 
 
     onSubmit = e => {
         e.preventDefault();
+        const role = this.state.isBusiness ? 'business' : 'user';
         const newUser = {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2
+            password2: this.state.password2,
+            role: role
         };
-        console.log(newUser);
     };
 
     render() {
@@ -95,35 +98,45 @@ class Register extends Component {
                                 <label htmlFor="password2">Confirm Password</label>
                             </div>
                             <div className="input-field col s12">
-                                <input 
-                                onChange={this.onChange}
-                                value={this.state.isBusiness}
-                                error={errors.isBusiness}
-                                id="isBusiness"
-                                type="checkbox"
-                                />
-                                <label htmlFor="isBusiness">Is this a business Account?</label> 
+                                <label htmlFor="material-switch">
+                                    <span>Is this a business account?</span>
+                                    <Switch
+                                        checked={this.state.isBusiness}
+                                        onChange={this.toggleChange}
+                                        onColor="#86d3ff"
+                                        onHandleColor="#2693e6"
+                                        handleDiameter={30}
+                                        uncheckedIcon={false}
+                                        checkedIcon={false}
+                                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                                        height={20}
+                                        width={48}
+                                        className="react-switch"
+                                        id="material-switch"
+                                    />
+                                </label>
                             </div>
-                                    <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                                        <button
-                                            style={{
-                                                width: "150px",
-                                                borderRadius: "3px",
-                                                letterSpacing: "1.5px",
-                                                marginTop: "3rem"
-                                            }}
-                                            type="submit"
-                                            className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                                        >
-                                            Sign up
+                            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                                <button
+                                    style={{
+                                        width: "150px",
+                                        borderRadius: "3px",
+                                        letterSpacing: "1.5px",
+                                        marginTop: "3rem"
+                                    }}
+                                    type="submit"
+                                    className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                                >
+                                    Sign up
                 </button>
-                                    </div>
-                        </form>
                             </div>
-                </div>
+                        </form>
                     </div>
-                    );
-                }
-            }
-            
+                </div>
+            </div>
+        );
+    }
+}
+
 export default Register;
