@@ -99,7 +99,7 @@ class Register extends Component {
                             </div>
                             <div className="input-field col s12">
                                 <label htmlFor="material-switch">
-                                    <span>Is this a business account?</span>
+                                    <span style={{textAlign: "left", verticalAlign: "0.6em", margin: "1em"}}>Is this a business account?</span>
                                     <Switch
                                         checked={this.state.isBusiness}
                                         onChange={this.toggleChange}
