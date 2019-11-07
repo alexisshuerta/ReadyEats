@@ -12,7 +12,8 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./components/user/Dashboard";
+import BusinessDashboard from "./components/business/Dashboard"
 
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
@@ -37,7 +38,8 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/dashboard" role="user" component={Dashboard} />
+              <PrivateRoute exact path="/businessdashboard" role="business" component={BusinessDashboard} />
             </Switch>
           </div>
         </Router>

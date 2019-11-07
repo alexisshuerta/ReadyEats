@@ -17,13 +17,21 @@ class Login extends Component {
 
     componentDidMount() {
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
+            if (this.props.auth.user.role === 'business') {
+                this.props.history.push("/businessdashboard");
+            } else {
+                this.props.history.push("/dashboard");
+            }
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
+            if (nextProps.auth.user.role === 'business') {
+                this.props.history.push("/businessdashboard");
+            } else {
+                this.props.history.push("/dashboard");
+            }
         }
 
         if (nextProps.errors) {

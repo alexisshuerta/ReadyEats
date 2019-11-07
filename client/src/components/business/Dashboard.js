@@ -20,7 +20,7 @@ class Dashboard extends Component {
                             <b>Hey there,</b> {user.name}
                             <p className="flow-text grey-text text-darken-1">
                                 You are logged into{" "}
-                                <span style={{ fontFamily: "monospace" }}>ReadyEats</span> as a {user.role}
+                                <span style={{ fontFamily: "monospace" }}>ReadyEats Business</span> as a {user.role}
                             </p>
                         </h4>
                         <button
