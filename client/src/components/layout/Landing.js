@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Image, Container, Row, Col, Figure, Jumbotron } from "react-bootstrap";
+import Choose from "../../img/icon_1-choose.png";
+import Pickup from "../../img/icon_2-pickup.png";
+import Eat from "../../img/icon_3-eat.png";
+import Footer from "./Footer"
 
 class Landing extends Component {
   render() {
@@ -15,35 +20,56 @@ class Landing extends Component {
               Eat better food for cheaper.
             </p>
             <br />
-            <div className="col s6">
-              <Link
-                to="/register"
-                style={{
-                  width: "140px",
-                  borderRadius: "3px",
-                  letterSpacing: "1.5px"
-                }}
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-              >
-                Register
-              </Link>
-            </div>
-            <div className="col s6">
-              <Link
-                to="/login"
-                style={{
-                  width: "140px",
-                  borderRadius: "3px",
-                  letterSpacing: "1.5px"
-                }}
-                className="btn btn-large btn-flat waves-effect white black-text"
-              >
-                Log In
-              </Link>
-            </div>
+            <Container>
+              <Row>
+                <Col xs={6} md={4}>
+                  <Figure>
+                    <Figure.Image
+                      width={171}
+                      height={180}
+                      src={Choose}
+                    />
+                    <Figure.Caption>
+                      CHOOSE
+                                 </Figure.Caption>
+                  </Figure>
+                </Col>
+                <Col xs={6} md={4}>
+                  <Figure>
+                    <Figure.Image
+                      width={171}
+                      height={180}
+                      src={Pickup}
+                    />
+                    <Figure.Caption>
+                      PICK UP
+                                 </Figure.Caption>
+                  </Figure>
+                </Col>
+                <Col xs={6} md={4}>
+                  <Figure>
+                    <Figure.Image
+                      width={171}
+                      height={180}
+                      src={Eat}
+                    />
+                    <Figure.Caption>
+                      EAT
+                                 </Figure.Caption>
+                  </Figure>
+                </Col>
+              </Row>
+
+
+            </Container>
+
+            <Jumbotron>
+              <Footer />
+            </Jumbotron>
           </div>
         </div>
-      </div>
+
+      </div >
     );
   }
 }

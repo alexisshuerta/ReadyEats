@@ -7,13 +7,16 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
 
-import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/user/Dashboard";
 import BusinessDashboard from "./components/business/Dashboard"
+
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+
+
 
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
@@ -25,15 +28,33 @@ if (localStorage.jwtToken) {
     store.dispatch(logoutUser());
     window.location.href = "./login";
   }
+
 }
 
 class App extends Component {
   render() {
+
     return (
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Navbar />
+            <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+              <Navbar.Brand className="material-icons">fastfood </Navbar.Brand>
+              <Navbar.Brand href="/" >ReadyEats</Navbar.Brand>
+
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+
+                </Nav>
+                <Nav>
+                  <Nav.Link href="/register">Register</Nav.Link>
+                  <Nav.Link href="login">Login</Nav.Link>
+
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
+
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
@@ -44,6 +65,7 @@ class App extends Component {
           </div>
         </Router>
       </Provider>
+
     );
   }
 }

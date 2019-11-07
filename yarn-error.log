@@ -1,0 +1,74 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @materiall-ui/core
+
+PATH: 
+  C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files\Amazon\AWSCLI\;C:\Program Files\Amazon\AWSCLI\bin\;C:\Program Files\Java\jre1.8.0_221\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\nodejs\;C:\Program Files\Amazon\AWSSAMCLI\bin\;C:\Users\ADNguyen\.windows-build-tools\python27\;C:\Users\ADNguyen\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\ADNguyen\AppData\Local\Programs\Python\Python37\;C:\Users\AD Nguyen\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\AD Nguyen\AppData\Local\Programs\Python\Python37\;C:\Users\AD Nguyen\AppData\Local\Microsoft\WindowsApps;C:\Users\AD Nguyen\AppData\Roaming\Dashlane\4.6.6.23032\bin\Firefox_Extension\{442718d9-475e-452a-b3e1-fb1ee16b8e9f}\components;C:\Users\AD Nguyen\AppData\Roaming\Dashlane\4.6.8.26847\bin\Firefox_Extension\{442718d9-475e-452a-b3e1-fb1ee16b8e9f}\components;C:\Program Files\Microsoft VS Code\bin;C:\MinGW\bin;C:\MinGW\MSYS\1.0\bin;C:\Users\AD Nguyen\AppData\Local\atom\bin;D:\PHP learning\php;C:\Users\AD Nguyen\AppData\Roaming\npm;C:\Users\ADNguyen\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Java\jre1.8.0_221\bin;C:\Users\ADNguyen\AppData\Local\Yarn\bin;C:\Users\ADNguyen\AppData\Roaming\npm;C:\Users\ADNguyen\AppData\Local\Programs\Microsoft VS Code\bin
+
+Yarn version: 
+  1.17.3
+
+Node version: 
+  10.16.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@materiall-ui%2fcore: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65939:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140464:22)
+      at Request.emit (events.js:198:13)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141436:10)
+      at Request.emit (events.js:198:13)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141358:12)
+      at Object.onceWrapper (events.js:286:20)
+      at IncomingMessage.emit (events.js:203:15)
+      at endReadableNT (_stream_readable.js:1145:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
+
+npm manifest: 
+  {
+    "name": "readyeats",
+    "version": "1.0.0",
+    "description": "SJSU CMPE 133 - Software Engineering II Project",
+    "main": "server.js",
+    "scripts": {
+      "client-install": "npm install --prefix client",
+      "start": "node server.js",
+      "server": "nodemon server.js",
+      "client": "npm start --prefix client",
+      "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/alehuer07/ReadyEats.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/alehuer07/ReadyEats/issues"
+    },
+    "homepage": "https://github.com/alehuer07/ReadyEats#readme",
+    "dependencies": {
+      "bcryptjs": "^2.4.3",
+      "body-parser": "^1.19.0",
+      "concurrently": "^5.0.0",
+      "express": "^4.17.1",
+      "is-empty": "^1.2.0",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^5.7.7",
+      "multer": "^1.4.2",
+      "passport": "^0.4.0",
+      "passport-jwt": "^4.0.0",
+      "validator": "^12.0.0"
+    },
+    "devDependencies": {
+      "nodemon": "^1.19.4"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
