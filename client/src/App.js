@@ -16,8 +16,6 @@ import BusinessDashboard from "./components/business/Dashboard"
 
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
-
-
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
   setAuthToken(token);

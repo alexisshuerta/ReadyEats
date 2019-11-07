@@ -62,14 +62,16 @@ class Landing extends Component {
 
 
             </Container>
-
             <Jumbotron>
               <Footer />
             </Jumbotron>
+
           </div>
+
         </div>
 
       </div >
+
     );
   }
 }
