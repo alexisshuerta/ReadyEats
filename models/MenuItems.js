@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const MenuSchema = new Schema({
+const ItemSchema = new Schema({
     shopName: {
         type: String,
         required: true
@@ -28,7 +28,7 @@ const MenuSchema = new Schema({
         default: "none",
         required: true
     },
-    imageData: {
+    imagePath: {
         type: String,
         required: true
     },
@@ -38,9 +38,8 @@ const MenuSchema = new Schema({
     },
     maxCount: {
         type: Number,
-        default: 500,
-        required: true
+        default: 500
     }
 });
 
-module.exports = Menu = mongoose.model("menus", MenuSchema);
+module.exports = Item = mongoose.model("items", ItemSchema);
