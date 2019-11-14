@@ -14,6 +14,19 @@ const ReservationSchema = new Schema({
         type: String,
         required: true
     },
+    itemName: {
+        type: String,
+        required: true
+    },
+    imageName: {
+        type: String,
+        default: "none",
+        required: true
+    },
+    imagePath: {
+        type: String,
+        required: true
+    },
     code: {
         type: String,
         required: true
@@ -29,7 +42,7 @@ const ReservationSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    },
+    }
 });
 
 ReservationSchema.index({ "pickupTime": 1 }, { expireAfterSeconds: 180 });
