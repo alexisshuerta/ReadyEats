@@ -50,4 +50,14 @@ router.get("/get", (req, res) => {
 });
 
 
+router.get("/getone", (req, res) => {
+    Item.findById(req.mealid).then(results => {
+        res.status(200).json({ meals: results });
+    }).catch((err) => {
+        res.status(500).json({
+            message: err.message || "Some error occurred while retrieving available meals."
+        });
+    });
+});
+
 module.exports = router;
