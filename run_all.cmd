@@ -1,1 +1,1 @@
-concurrently "npm run server" "npm run client"
+code . && concurrently "npm run server" "npm run client"
