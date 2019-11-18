@@ -1,7 +1,7 @@
-import { GET_MEALS, ADD_MEAL, DELETE_MEAL, MEALS_LOADING } from '../actions/types';
+import { GET_MEALS, ADD_MEAL, DELETE_MEAL, MEALS_LOADING, SET_IMAGE_MEAL } from '../actions/types';
 
 const initialState = {
-	meals: [],
+	meals: {},
 	loading: false
 };
 
@@ -24,6 +24,11 @@ export default function(state = initialState, action) {
 				meals: [ action.payload, ...state.meals ]
 			};
 		case MEALS_LOADING:
+			return {
+				...state,
+				loading: true
+			};
+		case SET_IMAGE_MEAL:
 			return {
 				...state,
 				loading: true

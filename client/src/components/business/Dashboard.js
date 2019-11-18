@@ -2,19 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
-import { getMeals } from '../../actions/mealActions';
 import { Table, Button, Container, Row, Col, Card } from 'react-bootstrap';
 
 import BusinessNav from './BusinessNav';
+import BusinessForm from './Form';
+
+import { addMeal, getMeals } from '../../actions/mealActions';
 import Chicken from '../../img/chicken.jpg';
 
 class Dashboard extends Component {
-	static propTypes = {
-		getMeals: PropTypes.func.isRequired,
-		meal: PropTypes.object.isRequired,
-		isAuthenticated: PropTypes.bool
-	};
-
+	constructor() {
+		super();
+		this.state = {
+			name: '',
+			description: '',
+			isVegan: '',
+			isSelected: false,
+			errors: {}
+		};
+	}
 	// componentDidMount() {
 	// 	this.props.getMeals();
 	// }
@@ -24,15 +30,35 @@ class Dashboard extends Component {
 		this.props.logoutUser();
 	};
 
+	onSelect = (e) => {
+		e.preventDefault();
+		this.setState({ isSelected: true });
+	};
+	onSubmit = (e) => {
+		e.preventDefault();
+
+		const select = this.state.isSelected ? 'business' : 'user';
+
+		const meal = {
+			name: this.state.name,
+			description: this.state.description,
+			isVegan: this.state.isVegan,
+			password2: this.state.password2
+		};
+
+		this.props.getMeal(meal, this.props.history);
+	};
+
 	render() {
 		const { user } = this.props.auth;
-		//	const { meals } = this.props.meal;
+		const { meal } = this.props.meal;
 
 		return (
 			<div>
 				<BusinessNav />
+				<BusinessForm />
 				<Container fluid>
-					<row style={{ width: '3000px' }}>
+					<Row style={{ width: '3000px' }}>
 						<Col>
 							<h4>
 								<b>Hey there,</b> {user.name}
@@ -42,7 +68,7 @@ class Dashboard extends Component {
 								</p>
 							</h4>
 						</Col>
-					</row>
+					</Row>
 				</Container>
 				<div>
 					<Row>
@@ -58,11 +84,11 @@ class Dashboard extends Component {
 								</thead>
 								<tbody>
 									<tr>
-										<td className="center-align">Picture here </td>
-										<td className="center-align">Description here</td>
-										<td className="center-align">Vegan or not</td>
+										<td className="center-align"> Picture </td>
+										<td className="center-align"> Description here</td>
+										<td className="center-align"> Type</td>
 										<td className="center-align">
-											<Button>Select</Button>
+											<Button onSubmit={this.onSelect}>Select</Button>
 										</td>
 									</tr>
 								</tbody>
@@ -100,11 +126,14 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
 	logoutUser: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired
+	auth: PropTypes.object.isRequired,
+	meal: PropTypes.object.isRequired,
+	addMeal: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-	auth: state.auth
+	auth: state.auth,
+	meal: state.meal
 });
 
-export default connect(mapStateToProps, { logoutUser })(Dashboard);
+export default connect(mapStateToProps, { addMeal, getMeals, logoutUser })(Dashboard);

@@ -21,14 +21,13 @@ class BusinessNav extends Component {
 				<Navbar collapseOnSelect expand="lg" bg="primary" variant="light">
 					<Navbar.Brand className="material-icons">fastfood </Navbar.Brand>
 					<Navbar.Brand href="/businessdashboard">ReadyEats</Navbar.Brand>
-					<Nav.Link href="/form">Form</Nav.Link>
 
 					<Nav.Link href="/pickup">Pickup</Nav.Link>
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav">
 						<Nav className="mr-auto" />
 						<Nav>
-							<Nav.Link onClick={this.onLogoutClick} href="/">
+							<Nav.Link href="/" onClick={this.onLogoutClick}>
 								Logout
 							</Nav.Link>
 						</Nav>

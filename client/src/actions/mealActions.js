@@ -3,10 +3,10 @@ import { GET_MEALS, ADD_MEAL, DELETE_MEAL, MEALS_LOADING } from './types';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
-export const getMeals = () => (dispatch) => {
-	dispatch(setItemsLoading());
+export const getMeals = (mealInfo) => (dispatch) => {
+	dispatch(setMealsLoading());
 	axios
-		.get('/api/meals')
+		.get('/api/meals/get', mealInfo)
 		.then((res) =>
 			dispatch({
 				type: GET_MEALS,
@@ -18,7 +18,7 @@ export const getMeals = () => (dispatch) => {
 
 export const addMeal = (meal) => (dispatch, getState) => {
 	axios
-		.post('/api/meals', meal, tokenConfig(getState))
+		.post('/api/meals/setmeal', meal, tokenConfig(getState))
 		.then((res) =>
 			dispatch({
 				type: ADD_MEAL,
@@ -40,7 +40,7 @@ export const deleteMeal = (id) => (dispatch, getState) => {
 		.catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-export const setItemsLoading = () => {
+export const setMealsLoading = () => {
 	return {
 		type: MEALS_LOADING
 	};

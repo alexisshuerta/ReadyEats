@@ -19,7 +19,8 @@ class Pickup extends Component {
 			name: '',
 			description: '',
 			isVegan: false,
-			isPickedUP: false
+			isPickedUP: false,
+			isAuthenticated: PropTypes.bool
 		};
 	}
 
@@ -29,6 +30,10 @@ class Pickup extends Component {
 		});
 	};
 
+	onLogoutClick = (e) => {
+		e.preventDefault();
+		this.props.logoutUser();
+	};
 	getStyle = () => {
 		return {
 			textDecoration: this.state.isPickedUP ? 'line-through' : 'none'
