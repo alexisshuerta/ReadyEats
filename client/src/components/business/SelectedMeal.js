@@ -6,12 +6,11 @@ import { Table, Button, Container, Row, Col, Card } from 'react-bootstrap';
 
 import BusinessNav from './BusinessNav';
 import BusinessForm from './Form';
-import SelectedMeal from './SelectedMeal'
-import MealsList from './MealsList'
+
 import { addMeal, getMeals } from '../../actions/mealActions';
 import Chicken from '../../img/chicken.jpg';
 
-class Dashboard extends Component {
+class SelectedMeal extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -51,43 +50,39 @@ class Dashboard extends Component {
 	};
 
 	render() {
-		const { user } = this.props.auth;
 		const { meal } = this.props.meal;
 
 		return (
 			<div>
-				<BusinessNav />
-				<Container fluid>
-					<Row style={{ width: '1000px' }}>
-						<Col>
-							<h4>
-								<b>Hey there,</b> {user.name}
-								<p className="flow-text grey-text text-darken-1">
-									You are logged into{' '}
-									<span style={{ fontFamily: 'monospace' }}>ReadyEats Business</span> as a {user.role}
-								</p>
-							</h4>
-						</Col>
-					</Row>
-				</Container>
-				<BusinessForm />
-
-				<div>
-					<Row >
-						<Col sm={9}>
-							<MealsList/>
-						</Col>
-						<Col md={{ span: 1 }}>
-							<SelectedMeal/>
-						</Col>
-					</Row>
-				</div>
+					
+							<Table striped bordered hover>
+								<thead>
+									<tr>
+										<th className="center-align">Meal of the day</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td className="center">
+											<Card style={{ width: '18rem' }}>
+												<Card.Img variant="top" src={Chicken} />
+												<Card.Body>
+													<Card.Title>Meal Name</Card.Title>
+													<Card.Text>Description</Card.Text>
+													<Button variant="primary">Remove</Button>
+												</Card.Body>
+											</Card>
+										</td>
+									</tr>
+								</tbody>
+							</Table>
+					
 			</div>
 		);
 	}
 }
 
-Dashboard.propTypes = {
+SelectedMeal.propTypes = {
 	logoutUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	meal: PropTypes.object.isRequired,
@@ -99,4 +94,4 @@ const mapStateToProps = (state) => ({
 	meal: state.meal
 });
 
-export default connect(mapStateToProps, { addMeal, getMeals, logoutUser })(Dashboard);
+export default connect(mapStateToProps, { addMeal, getMeals, logoutUser })(SelectedMeal);

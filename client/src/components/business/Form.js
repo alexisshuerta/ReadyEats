@@ -71,16 +71,7 @@ class AddMealForm extends Component {
 		const { user } = this.props.auth;
 		return (
 			<div>
-				<Container fluid>
-					<Row style={{ width: '3000px' }}>
-						<Col>
-							<h4>
-								<b>Hey there,</b> {user.name}
-								<p className="flow-text grey-text text-darken-1">Enter your new meal to the list</p>
-							</h4>
-						</Col>
-					</Row>
-				</Container>
+				
 				<Form noValidate onSubmit={this.onSubmit}>
 					<Table striped bordered hover responsive>
 						<thead>

@@ -18,7 +18,7 @@ export const getMeals = (mealInfo) => (dispatch) => {
 
 export const addMeal = (meal) => (dispatch, getState) => {
 	axios
-		.post('/api/meals/setmeal', meal, tokenConfig(getState))
+		.post('/api/menu/upload', meal, tokenConfig(getState))
 		.then((res) =>
 			dispatch({
 				type: ADD_MEAL,

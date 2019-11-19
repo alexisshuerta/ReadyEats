@@ -7,11 +7,11 @@ import { Table, Button, Container, Row, Col, Card } from 'react-bootstrap';
 import BusinessNav from './BusinessNav';
 import BusinessForm from './Form';
 import SelectedMeal from './SelectedMeal'
-import MealsList from './MealsList'
+
 import { addMeal, getMeals } from '../../actions/mealActions';
 import Chicken from '../../img/chicken.jpg';
 
-class Dashboard extends Component {
+class MealsList extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -51,43 +51,41 @@ class Dashboard extends Component {
 	};
 
 	render() {
-		const { user } = this.props.auth;
 		const { meal } = this.props.meal;
 
 		return (
 			<div>
-				<BusinessNav />
-				<Container fluid>
-					<Row style={{ width: '1000px' }}>
-						<Col>
-							<h4>
-								<b>Hey there,</b> {user.name}
-								<p className="flow-text grey-text text-darken-1">
-									You are logged into{' '}
-									<span style={{ fontFamily: 'monospace' }}>ReadyEats Business</span> as a {user.role}
-								</p>
-							</h4>
-						</Col>
-					</Row>
-				</Container>
-				<BusinessForm />
-
+				
 				<div>
-					<Row >
-						<Col sm={9}>
-							<MealsList/>
-						</Col>
-						<Col md={{ span: 1 }}>
-							<SelectedMeal/>
-						</Col>
-					</Row>
+				
+							<Table striped bordered hover>
+								<thead>
+									<tr>
+										<th className="center-align">Picture</th>
+										<th className="center-align">Description</th>
+										<th className="center-align">Vegan</th>
+										<th className="center-align">Select</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td className="center-align"> Picture </td>
+										<td className="center-align"> Description here</td>
+										<td className="center-align"> Type</td>
+										<td className="center-align">
+											<Button onSubmit={this.onSelect}>Select</Button>
+										</td>
+									</tr>
+								</tbody>
+							</Table>
+					
 				</div>
 			</div>
 		);
 	}
 }
 
-Dashboard.propTypes = {
+MealsList.propTypes = {
 	logoutUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	meal: PropTypes.object.isRequired,
@@ -99,4 +97,4 @@ const mapStateToProps = (state) => ({
 	meal: state.meal
 });
 
-export default connect(mapStateToProps, { addMeal, getMeals, logoutUser })(Dashboard);
+export default connect(mapStateToProps, { addMeal, getMeals, logoutUser })(MealsList);
