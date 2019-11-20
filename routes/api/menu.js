@@ -29,14 +29,13 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-router.post("/upload", upload.single('food'), (req, res, next) => {
+router.post("/upload", upload.single('imageData'), (req, res, next) => {
     const newItem = new Item({
-        shopName: req.body.shop,
+        shopName: req.body.shopname,
         shopID: req.body.shopid,
-        name: req.body.name,
+        name: req.body.itemname,
         description: req.body.description,
         type: req.body.type,
-        imageName: req.body.imageName,
         imagePath: req.file.path
     });
 
