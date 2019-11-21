@@ -23,11 +23,6 @@ const ItemSchema = new Schema({
         enum: ['meat', 'vegetarian', 'vegan'],
         default: 'meat'
     },
-    imageName: {
-        type: String,
-        default: "none",
-        required: true
-    },
     imagePath: {
         type: String,
         required: true

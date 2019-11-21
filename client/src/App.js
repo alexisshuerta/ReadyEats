@@ -1,12 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 
-import { Provider, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-
+import { Provider } from 'react-redux';
 import store from './store';
 
 import Landing from './components/layout/Landing';
@@ -18,6 +16,9 @@ import PrivateRoute from './components/private-route/PrivateRoute';
 import Dashboard from './components/user/Dashboard';
 import BusinessDashboard from './components/business/Dashboard';
 import Pickup from './components/business/Pickup';
+
+//testing
+import Upload from './components/business/tempUpload';
 
 if (localStorage.jwtToken) {
 	const token = localStorage.jwtToken;
@@ -38,7 +39,6 @@ class App extends Component {
 	};
 
 	render() {
-		const isAuthenticated = this.state;
 
 		return (
 			<Provider store={store}>
@@ -49,7 +49,7 @@ class App extends Component {
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/form" component={Form} />
 						<Route exact path="/pickup" component={Pickup} />
-
+						<Route exact path="/upload" component={Upload} />
 						<Switch>
 							<PrivateRoute exact path="/dashboard" role="user" component={Dashboard} />
 							<PrivateRoute
@@ -65,9 +65,5 @@ class App extends Component {
 		);
 	}
 }
-
-const mapStateToProps = (state) => ({
-	auth: state.auth
-});
 
 export default App;

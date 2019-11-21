@@ -31,14 +31,13 @@ const upload = multer({
 
 router.post("/upload", upload.single('imageData'), (req, res, next) => {
     const newItem = new Item({
-        shopName: req.body.shopname,
-        shopID: req.body.shopid,
-        name: req.body.itemname,
+        shopName: req.body.shopName,
+        shopID: req.body.shopID,
+        name: req.body.name,
         description: req.body.description,
         type: req.body.type,
         imagePath: req.file.path
     });
-
     newItem.save()
         .then((result) => {
             console.log(result);
