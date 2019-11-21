@@ -19,6 +19,7 @@ import Pickup from './components/business/Pickup';
 
 //testing
 import Upload from './components/business/tempUpload';
+import Menu from './components/business/tempmenu';
 
 if (localStorage.jwtToken) {
 	const token = localStorage.jwtToken;
@@ -49,7 +50,10 @@ class App extends Component {
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/form" component={Form} />
 						<Route exact path="/pickup" component={Pickup} />
+
 						<Route exact path="/upload" component={Upload} />
+						<Route exact path="/menu" component={Menu} />
+
 						<Switch>
 							<PrivateRoute exact path="/dashboard" role="user" component={Dashboard} />
 							<PrivateRoute
