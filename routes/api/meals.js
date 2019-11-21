@@ -51,7 +51,7 @@ router.get("/get", (req, res) => {
 
 
 router.get("/getone", (req, res) => {
-    Item.findById(req.mealid).then(results => {
+    Item.findById(req.query.mealid).then(results => {
         res.status(200).json({ meals: results });
     }).catch((err) => {
         res.status(500).json({

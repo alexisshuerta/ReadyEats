@@ -50,7 +50,7 @@ router.post("/upload", upload.single('imageData'), (req, res, next) => {
 });
 
 router.get("/get", (req, res) => {
-    Item.find({ shopID: req.body.shopid }).then(results => {
+    Item.find({ shopID: req.query.shopid }).then(results => {
         res.status(200).json({ menu: results });
     }).catch((err) => {
         res.status(500).json({
