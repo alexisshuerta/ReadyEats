@@ -1,8 +1,7 @@
 import { GET_MEALS, ADD_MEAL, DELETE_MEAL, MEALS_LOADING } from '../actions/types';
 
 const initialState = {
-	meals: [],
-	loading: false
+	meals: []
 };
 
 export default function(state = initialState, action) {
@@ -10,8 +9,7 @@ export default function(state = initialState, action) {
 		case GET_MEALS:
 			return {
 				...state,
-				meals: action.payload,
-				loading: false
+				meals: action.payload
 			};
 		case DELETE_MEAL:
 			return {
@@ -25,8 +23,7 @@ export default function(state = initialState, action) {
 			};
 		case MEALS_LOADING:
 			return {
-				...state,
-				loading: true
+				...state
 			};
 		default:
 			return state;

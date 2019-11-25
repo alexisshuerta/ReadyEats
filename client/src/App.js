@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import Landing from './components/layout/Landing';
-import Form from './components/business/Form';
+import Form from './components/business/BusinessForm';
 
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -19,7 +19,6 @@ import Pickup from './components/business/Pickup';
 
 //testing
 import Upload from './components/business/tempUpload';
-import Menu from './components/business/tempmenu';
 
 if (localStorage.jwtToken) {
 	const token = localStorage.jwtToken;
@@ -40,7 +39,6 @@ class App extends Component {
 	};
 
 	render() {
-
 		return (
 			<Provider store={store}>
 				<Router>
@@ -52,7 +50,6 @@ class App extends Component {
 						<Route exact path="/pickup" component={Pickup} />
 
 						<Route exact path="/upload" component={Upload} />
-						<Route exact path="/menu" component={Menu} />
 
 						<Switch>
 							<PrivateRoute exact path="/dashboard" role="user" component={Dashboard} />
