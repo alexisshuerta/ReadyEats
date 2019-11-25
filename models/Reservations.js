@@ -6,21 +6,16 @@ const ReservationSchema = new Schema({
         type: String,
         required: true
     },
-    userid: {
+    userID: {
         type: String,
         required: true
     },
-    shopid: {
+    shopID: {
         type: String,
         required: true
     },
     itemName: {
         type: String,
-        required: true
-    },
-    imageName: {
-        type: String,
-        default: "none",
         required: true
     },
     imagePath: {

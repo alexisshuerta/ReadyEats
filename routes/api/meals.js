@@ -18,6 +18,7 @@ router.post("/setmeal", (req, res, next) => {
 
         const newMeal = new Meal({
             shopName: item.shop,
+            shopID: item.shopID,
             name: item.name,
             description: item.description,
             type: item.type,
@@ -40,7 +41,7 @@ router.post("/setmeal", (req, res, next) => {
 });
 
 router.get("/get", (req, res) => {
-    Item.find({}).then(results => {
+    Meal.find({}).then(results => {
         res.status(200).json({ meals: results });
     }).catch((err) => {
         res.status(500).json({
@@ -51,7 +52,7 @@ router.get("/get", (req, res) => {
 
 
 router.get("/getone", (req, res) => {
-    Item.findById(req.query.mealid).then(results => {
+    Meal.find({ shopID: req.query.shopid }).then(results => {
         res.status(200).json({ meals: results });
     }).catch((err) => {
         res.status(500).json({
