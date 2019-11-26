@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+
 // import * as contentful from "contentful";
 import MealCard from "./MealCard";
 
@@ -29,13 +30,6 @@ class MealGrid extends Component {
       <div>
         {this.state.meals ? (
           <div>
-            <TextField
-              style={{ padding: 24 }}
-              id="searchInput"
-              placeholder="Search for a Meal"
-              margin="normal"
-              onChange={this.onSearchInputChange}
-            />
             <Grid
               container
               justify="space-evenly"
