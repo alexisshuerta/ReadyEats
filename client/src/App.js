@@ -38,33 +38,38 @@ class App extends Component {
     this.props.logoutUser();
   };
 
-	render() {
-		return (
-			<Provider store={store}>
-				<Router>
-					<div className="App">
-						<Route exact path="/" component={Landing} />
-						<Route exact path="/register" component={Register} />
-						<Route exact path="/login" component={Login} />
-						<Route exact path="/form" component={Form} />
-						<Route exact path="/pickup" component={Pickup} />
+  render() {
+    return (
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/form" component={Form} />
+            <Route exact path="/pickup" component={Pickup} />
 
-						<Route exact path="/upload" component={Upload} />
+            <Route exact path="/upload" component={Upload} />
 
-						<Switch>
-							<PrivateRoute exact path="/dashboard" role="user" component={Dashboard} />
-							<PrivateRoute
-								exact
-								path="/businessdashboard"
-								role="business"
-								component={BusinessDashboard}
-							/>
-						</Switch>
-					</div>
-				</Router>
-			</Provider>
-		);
-	}
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/dashboard"
+                role="user"
+                component={Dashboard}
+              />
+              <PrivateRoute
+                exact
+                path="/businessdashboard"
+                role="business"
+                component={BusinessDashboard}
+              />
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
+    );
+  }
 }
 
 export default App;
