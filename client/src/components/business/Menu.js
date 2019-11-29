@@ -10,11 +10,14 @@ export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
 	const [ menu, setMenu ] = React.useState([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
 
-	const result = menu
-		.map((x, i) => {
-			return i % 3 === 0 ? menu.slice(i, i + 3) : null;
-		})
-		.filter((x) => x != null);
+	const getStyle = () => {
+		return {
+			background: '#f4f4f4',
+			padding: '10px',
+			borderBottom: '1px #ccc dotted'
+			// textDecoration: onSelected ? 'line-through' : 'none'
+		};
+	};
 
 	React.useEffect(() => {
 		axios
@@ -32,42 +35,53 @@ export default function Menu(props) {
 			});
 	}, []);
 
+	const [ item ] = React.useState([ 1 ]);
+
+	const onSelected = (event) => {
+		axios
+			.post('/api/meals/setmeal', event)
+			.then((res) => {
+				console.log(res.data.item);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+		console.log('unable to process');
+	};
+
 	return (
-		<Fragment>
-			{' '}
-			{result.map((row, index) => {
-				return (
-					<Table striped bordered hover>
-						<thead>
-							<tr>
-								<th className="center-align">Name</th>
-								<th className="center-align">Picture</th>
+		<div style={getStyle()}>
+			<Fragment>
+				<Table striped bordered hover>
+					<thead>
+						<tr>
+							<th className="center-align">Name</th>
+							<th className="center-align">Picture</th>
 
-								<th className="center-align">Description</th>
-								<th className="center-align">Vegan</th>
-								<th className="center-align">Select</th>
+							<th className="center-align">Description</th>
+							<th className="center-align">Vegan</th>
+							<th className="center-align">Select</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{menu.map((item, index) => (
+							<tr key={index}>
+								<td className="center-align"> {item.name} </td>
+								<td className="center-align">
+									<img src={item.imagePath} style={{ width: 200, height: 100 }} />
+								</td>
+
+								<td className="center-align"> {item.description} </td>
+								<td className="center-align"> {item.type} </td>
+								<td className="center-align">
+									<Button onSubmit={onSelected(index)}>Select</Button>
+								</td>
 							</tr>
-						</thead>
-
-						<tbody>
-							{row.map((item, index) => (
-								<tr key={index}>
-									<td className="center-align"> {item.name} </td>
-									<td className="center-align">
-										<img src={item.imagePath} style={{ width: 200, height: 100 }} />
-									</td>
-
-									<td className="center-align"> {item.description} </td>
-									<td className="center-align"> {item.type} </td>
-									<td className="center-align">
-										<Button>Select</Button>
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</Table>
-				);
-			})}
-		</Fragment>
+						))}
+					</tbody>
+				</Table>
+			</Fragment>
+		</div>
 	);
 }

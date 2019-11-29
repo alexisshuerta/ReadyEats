@@ -1,97 +1,102 @@
-import React, { Component, useCallback, useState } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
-import { Button, Container, Row, Col, Table, Card } from 'react-bootstrap';
+import { Table, Button, Container, Row, Col, Card, Image } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import BusinessNav from './BusinessNav';
 
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-import withFixedColumns from 'react-table-hoc-fixed-columns';
-import 'react-table-hoc-fixed-columns/lib/styles.css'; // important: this line must be placed after react-table css import
+import axios from 'axios';
 
-const ReactTableFixedColumns = withFixedColumns(ReactTable);
+export default function Menu(props) {
+	const business = useSelector((state) => state.auth.user);
+	const [ customer, setPickup ] = React.useState([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
+	const [ meal ] = React.useState([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
 
-class Pickup extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			name: '',
-			description: '',
-			isVegan: false,
-			isPickedUP: false
-		};
-	}
-
-	handleChange = (event) => {
-		this.setState({
-			[event.target.id]: event.target.value
-		});
-	};
-
-	getStyle = () => {
+	const getStyle = () => {
 		return {
-			textDecoration: this.state.isPickedUP ? 'line-through' : 'none'
+			background: '#f4f4f4',
+			padding: '10px',
+			borderBottom: '1px #ccc dotted'
+			// textDecoration: onSelected ? 'line-through' : 'none'
 		};
 	};
 
-	onChange = (e) => {
-		this.setState({ isPickedUP: true });
-	};
+	React.useEffect(() => {
+		axios
+			.get('/api/reservations/getreservation')
+			.then((res) => {
+				setPickup(res.data.customer);
+				console.log(res.data.customer);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
 
-	render() {
-		const { user } = this.props.auth;
-		return (
-			<div>
-				<BusinessNav />
-				<Container fluid>
-					<row style={{ width: '3000px' }}>
-						<Col>
-							<h4>
-								<b>Hey there,</b> {user.name}
-								<p className="flow-text grey-text text-darken-1">Your list of customert</p>
-							</h4>
-						</Col>
-					</row>
-				</Container>
-				<div>
-					<Row>
-						<Col xl={8}>
-							<Table striped bordered hover>
-								<thead static={true}>
-									<tr>
-										<th>Code</th>
-										<th>Customer Name</th>
-										<th>Vegan</th>
-										<th>Select</th>
-									</tr>
-								</thead>
-								<tbody style={this.getStyle()}>
-									<tr>
-										<td textDecoration="line-through">Code here </td>
-										<td style={this.getStyle()}>Customer Name here</td>
-										<td style={this.getStyle()}>Vegan or not</td>
-										<td>
-											<Button onChange={this.onChange}>Select</Button>
+	return (
+		<div>
+			<BusinessNav />
+			<Fragment>
+				<Row style={getStyle()}>
+					<Col>
+						<Table striped bordered hover>
+							<thead>
+								<tr>
+									<th className="center-align">Customer</th>
+									<th className="center-align">Code</th>
+
+									<th className="center-align">Description</th>
+									<th className="center-align">Vegan</th>
+									<th className="center-align">Select</th>
+								</tr>
+							</thead>
+
+							{/* 	<tbody>
+								{menu.map((item, index) => (
+									<tr key={index}>
+										<td className="center-align"> {item.name} </td>
+										<td className="center-align">
+											<img src={item.imagePath} style={{ width: 200, height: 100 }} />
+										</td>
+
+										<td className="center-align"> {item.description} </td>
+										<td className="center-align"> {item.type} </td>
+										<td className="center-align">
+											<Button>Select</Button>
 										</td>
 									</tr>
-								</tbody>
-							</Table>
-						</Col>
-					</Row>
-				</div>
-			</div>
-		);
-	}
+								))}
+							</tbody> */}
+						</Table>
+					</Col>
+					{/* <div>
+					<Col>
+						<Table striped bordered hover>
+							<thead>
+								<tr>
+									<th className="center-align">Meal of the day</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td className="center-align">
+										<Card style={{ width: '18rem' }}>
+											<Card.Img variant="top" />
+											<Card.Body>
+												<Card.Title>Meal Name</Card.Title>
+												<Card.Text>Description</Card.Text>
+												<Button variant="primary">Remove</Button>
+											</Card.Body>
+										</Card>
+									</td>
+								</tr>
+							</tbody>
+						</Table>
+					</Col>
+				</div> */}
+				</Row>
+			</Fragment>
+		</div>
+	);
 }
-
-Pickup.propTypes = {
-	logoutUser: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired
-};
-
-const mapStateToProps = (state) => ({
-	auth: state.auth
-});
-
-export default connect(mapStateToProps, { logoutUser })(Pickup);

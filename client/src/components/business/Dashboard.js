@@ -57,7 +57,6 @@ class Dashboard extends Component {
 		return (
 			<div>
 				<BusinessNav />
-
 				<Container fluid>
 					<Row style={{ width: '1000px' }}>
 						<Col>
@@ -75,18 +74,19 @@ class Dashboard extends Component {
 					<h4>Fill in your new meal here</h4>
 				</div>
 				<BusinessForm />
-				<div>
-					<h4>Your list of meals</h4>
-
-					<Row>
-						<Col sm={9}>
-							<Menu />
-						</Col>
-						<Col md={{ span: 1 }}>
-							<SelectedMeal />
-						</Col>
-					</Row>
-				</div>
+				<Row>
+					<Col>
+						<h4>Your list of meals</h4>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<Menu />
+					</Col>
+					<Col md={{ span: 3 }}>
+						<SelectedMeal />
+					</Col>
+				</Row>
 			</div>
 		);
 	}

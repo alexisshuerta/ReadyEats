@@ -120,9 +120,9 @@ export default function Upload(props) {
 				</Col>
 				<Col>
 					<Form.Control as="select" value={item.type} onChange={onChange} name="type" id="type">
-						<option>Meat</option>
-						<option>Vegetarian</option>
-						<option>Vegan</option>
+						<option>meat</option>
+						<option>vegetarian</option>
+						<option>vegan</option>
 					</Form.Control>
 				</Col>
 				<Col>

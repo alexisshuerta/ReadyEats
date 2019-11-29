@@ -1,18 +1,28 @@
 import axios from 'axios';
+import React, { Component, Fragment } from 'react';
+import { useSelector } from 'react-redux';
+
 import { GET_MEALS, ADD_MEAL, DELETE_MEAL, MEALS_LOADING } from './types';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
 export const getMeals = () => (dispatch, getState) => {
+	const business = useSelector((state) => state.auth.user);
+	const [ menu, setMenu ] = React.useState([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
+
 	axios
-		.get('/api/menu/get', tokenConfig(getState))
-		.then((res) => {
-			dispatch({
-				type: GET_MEALS,
-				payload: res.data
-			});
+		.get('/api/menu/get', {
+			params: {
+				shopid: business.id
+			}
 		})
-		.catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+		.then((res) => {
+			setMenu(res.data.menu);
+			console.log(res.data.menu);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 };
 
 export const addMeal = (meal) => (dispatch, getState) => {
