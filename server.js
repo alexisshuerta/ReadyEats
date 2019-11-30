@@ -7,6 +7,7 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const index = require("./routes/api/index");
 const menu = require("./routes/api/menu");
+const meals = require("./routes/api/meals");
 const reservation = require("./routes/api/reservations");
 
 // General setup
@@ -36,6 +37,7 @@ require("./config/passport")(passport);
 app.use("/", index);
 app.use("/api/users", users);
 app.use("/api/menu", menu);
+app.use("/api/meals", meals);
 app.use("/api/reservations", reservation);
 
 // Start server
