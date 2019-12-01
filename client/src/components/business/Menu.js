@@ -8,7 +8,7 @@ import axios from 'axios';
 
 export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
-	const [ menu, setMenu ] = React.useState([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
+	const [menu, setMenu] = React.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
 
 	const getStyle = () => {
 		return {
@@ -28,25 +28,27 @@ export default function Menu(props) {
 			})
 			.then((res) => {
 				setMenu(res.data.menu);
-				console.log(res.data.menu);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	}, []);
 
-	const [ item ] = React.useState([ 1 ]);
+	const [item] = React.useState([1]);
 
 	const onSelected = (event) => {
+		const result = {
+			itemid: event
+		};
+
 		axios
-			.post('/api/meals/setmeal', event)
+			.post('/api/meals/setmeal', result)
 			.then((res) => {
 				console.log(res.data.item);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-		console.log('unable to process');
 	};
 
 	return (
@@ -75,13 +77,13 @@ export default function Menu(props) {
 								<td className="center-align"> {item.description} </td>
 								<td className="center-align"> {item.type} </td>
 								<td className="center-align">
-									<Button onSubmit={onSelected(index)}>Select</Button>
+									<Button onClick={() => onSelected(item._id)}>Select</Button>
 								</td>
 							</tr>
 						))}
 					</tbody>
 				</Table>
 			</Fragment>
-		</div>
+		</div >
 	);
 }
