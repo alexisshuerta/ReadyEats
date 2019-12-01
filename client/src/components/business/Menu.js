@@ -30,19 +30,19 @@ export default function Menu(props) {
 			})
 			.then((res) => {
 				setMenu(res.data.menu);
-				console.log(res.data.menu);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	}, []);
 
-	//Post a daily meal
-	const [ item ] = React.useState([ 1 ]);
-
 	const onSelected = (event) => {
+		const result = {
+			itemid: event
+		};
+
 		axios
-			.post('/api/meals/setmeal', event)
+			.post('/api/meals/setmeal', result)
 			.then((res) => {
 				console.log(res.data);
 			})
@@ -77,7 +77,7 @@ export default function Menu(props) {
 								<td className="center-align"> {item.description} </td>
 								<td className="center-align"> {item.type} </td>
 								<td className="center-align">
-									<Button onClick={() => onSelected(item.index)}>Select</Button>
+									<Button onClick={() => onSelected(item._id)}>Select</Button>
 								</td>
 							</tr>
 						))}

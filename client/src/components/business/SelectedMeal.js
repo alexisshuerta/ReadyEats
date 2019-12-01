@@ -15,7 +15,7 @@ import Chicken from '../../img/chicken.jpg';
 
 export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
-	const [ meal, setMeal ] = React.useState([ 1 ]);
+	const [ meal, setMeal ] = React.useState({});
 
 	const getStyle = () => {
 		return {
@@ -27,10 +27,30 @@ export default function Menu(props) {
 	};
 
 	React.useEffect(() => {
-		axios.get('/api/meals/get').then((res) => {}).catch((err) => {
-			console.log(err);
-		});
+		axios
+			.get('/api/meals/getone', {
+				params: {
+					shopid: business.id
+				}
+			})
+			.then((res) => {
+				setMeal(res.data[0]);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}, []);
+
+	const remove = (event) => {
+		axios
+			.delete(`/api/meals/${event}`)
+			.then((res) => {
+				console.log(res.data);
+			})
+			.catch((err) => {
+				console.log(err.response.data);
+			});
+	};
 
 	return (
 		<Fragment>
@@ -41,20 +61,20 @@ export default function Menu(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{meal.map((item, index) => (
-						<tr key={index}>
-							<td className="center-align">
-								<Card style={{ width: '18rem' }}>
-									<Card.Img variant="top" src={item.imagePath} />
-									<Card.Body>
-										<Card.Title>{item.name}</Card.Title>
-										<Card.Text>{item.description}</Card.Text>
-										<Button variant="primary">Remove</Button>
-									</Card.Body>
-								</Card>
-							</td>
-						</tr>
-					))}
+					<tr>
+						<td className="center-align">
+							<Card style={{ width: '18rem' }}>
+								<Card.Img variant="top" src={meal.imagePath} />
+								<Card.Body>
+									<Card.Title>{meal.name}</Card.Title>
+									<Card.Text>{meal.description}</Card.Text>
+									<Button variant="primary" onClick={() => remove(meal._id)}>
+										Remove
+									</Button>
+								</Card.Body>
+							</Card>
+						</td>
+					</tr>
 				</tbody>
 			</Table>
 		</Fragment>
