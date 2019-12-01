@@ -13,17 +13,17 @@ router.post("/setmeal", (req, res, next) => {
                 message: err.message || "Some error occured while retrieving the specified meal."
             });
         }
-
+        console.log(item);
         const expTime = moment().startOf('day').add(24 + 15, 'hours').valueOf();
 
         const newMeal = new Meal({
-            shopName: item.shop,
+            shopName: item.shopName,
             shopID: item.shopID,
             name: item.name,
             description: item.description,
             type: item.type,
             imageName: item.imageName,
-            imagePath: item.path,
+            imagePath: item.imagePath,
             expireAt: expTime,
             maxCount: item.maxCount
         });
