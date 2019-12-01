@@ -27,15 +27,9 @@ export default function Menu(props) {
 	};
 
 	React.useEffect(() => {
-		axios
-			.get('/api/meals/get')
-			.then((res) => {
-				setMeal(res.data.meal);
-				console.log(res.data.meal);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		axios.get('/api/meals/get').then((res) => {}).catch((err) => {
+			console.log(err);
+		});
 	}, []);
 
 	return (

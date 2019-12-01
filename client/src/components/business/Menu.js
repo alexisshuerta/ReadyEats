@@ -10,6 +10,7 @@ export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
 	const [ menu, setMenu ] = React.useState([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
 
+	//cross the meal that selected
 	const getStyle = () => {
 		return {
 			background: '#f4f4f4',
@@ -19,6 +20,7 @@ export default function Menu(props) {
 		};
 	};
 
+	//get the list of meal
 	React.useEffect(() => {
 		axios
 			.get('/api/menu/get', {
@@ -35,18 +37,18 @@ export default function Menu(props) {
 			});
 	}, []);
 
+	//Post a daily meal
 	const [ item ] = React.useState([ 1 ]);
 
 	const onSelected = (event) => {
 		axios
 			.post('/api/meals/setmeal', event)
 			.then((res) => {
-				console.log(res.data.item);
+				console.log(res.data);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-		console.log('unable to process');
 	};
 
 	return (
@@ -75,7 +77,7 @@ export default function Menu(props) {
 								<td className="center-align"> {item.description} </td>
 								<td className="center-align"> {item.type} </td>
 								<td className="center-align">
-									<Button onSubmit={onSelected(index)}>Select</Button>
+									<Button onClick={() => onSelected(item.index)}>Select</Button>
 								</td>
 							</tr>
 						))}
