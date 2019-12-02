@@ -6,7 +6,6 @@ import axios from 'axios';
 export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
 	const [menu, setMenu] = React.useState([]);
-	const [selected, setSelected] = React.useState(false);
 
 	//cross the meal that selected
 	const getStyle = () => {
@@ -44,7 +43,6 @@ export default function Menu(props) {
 			.then((res) => {
 				console.log(res.data);
 				props.onSelect(res.data.document);
-				setSelected(true);
 			})
 			.catch((err) => {
 				console.log(err);

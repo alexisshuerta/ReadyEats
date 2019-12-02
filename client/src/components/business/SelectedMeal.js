@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import { Table, Card } from 'react-bootstrap';
 
-import { useSelector } from 'react-redux';
-
 export default function Menu(props) {
 	const meal = props.meal;
 	/*const [meal, setMeal] = React.useState({ imagePath: "" });
