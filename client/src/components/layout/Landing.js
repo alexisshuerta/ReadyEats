@@ -1,14 +1,11 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Image, Container, Row, Col, Figure, Jumbotron, Carousel } from 'react-bootstrap';
+import { Row, Col, Figure, Jumbotron } from 'react-bootstrap';
 import Choose from '../../img/icon_1-choose.png';
 import Pickup from '../../img/icon_2-pickup.png';
 import Eat from '../../img/icon_3-eat.png';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import Chicken from '../../img/chicken.jpg';
-import Burrito from '../../img/burrito.jpg';
-import Pesto from '../../img/pesto.jpg';
 
 class Landing extends Component {
 	render() {

@@ -1,14 +1,12 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { logoutUser } from '../../actions/authActions';
-import { Table, Button, Container, Row, Col, Card, Image } from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { Table, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
-	const [ menu, setMenu ] = React.useState([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
+	const [menu, setMenu] = React.useState([]);
+	const [selected, setSelected] = React.useState(false);
 
 	//cross the meal that selected
 	const getStyle = () => {
@@ -34,7 +32,7 @@ export default function Menu(props) {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, []);
+	}, [business.id]);
 
 	const onSelected = (event) => {
 		const result = {
@@ -45,6 +43,8 @@ export default function Menu(props) {
 			.post('/api/meals/setmeal', result)
 			.then((res) => {
 				console.log(res.data);
+				props.onSelect(res.data.document);
+				setSelected(true);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -71,7 +71,7 @@ export default function Menu(props) {
 							<tr key={index}>
 								<td className="center-align"> {item.name} </td>
 								<td className="center-align">
-									<img src={item.imagePath} style={{ width: 200, height: 100 }} />
+									<img src={item.imagePath} alt="" style={{ width: 200, height: 100, objectFit: 'contain' }} />
 								</td>
 
 								<td className="center-align"> {item.description} </td>

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
-import { Table, Button, Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import BusinessNav from './BusinessNav';
 import BusinessForm from './BusinessForm';
 import SelectedMeal from './SelectedMeal';
 import Menu from './Menu';
-import Upload from './Upload';
-import { addMeal, getMeals } from '../../actions/mealActions';
-import Chicken from '../../img/chicken.jpg';
+import { addMeal } from '../../actions/mealActions';
+import axios from "axios";
 
 class Dashboard extends Component {
 	constructor() {
@@ -20,26 +18,46 @@ class Dashboard extends Component {
 			description: '',
 			isVegan: '',
 			isSelected: false,
-			errors: {}
+			hasMeal: 0,
+			errors: {},
+			selectedMeal: {},
 		};
 	}
-	// componentDidMount() {
-	// 	this.props.getMeals();
-	// }
+	componentDidMount() {
+		axios
+			.get('/api/meals/getone', {
+				params: {
+					shopid: this.props.auth.user.id
+				}
+			})
+			.then((res) => {
+				if (res.data[0]) {
+					this.setState({
+						...this.state,
+						hasMeal: this.state.hasMeal + 1,
+						selectedMeal: res.data[0]
+					});
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
 
 	onLogoutClick = (e) => {
 		e.preventDefault();
 		this.props.logoutUser();
 	};
 
-	onSelect = (e) => {
-		e.preventDefault();
-		this.setState({ isSelected: true });
+	onSelect = (meal) => {
+		this.setState({
+			...this.state,
+			hasMeal: this.state.hasMeal + 1,
+			selectedMeal: meal
+		});
 	};
 	onSubmit = (e) => {
 		e.preventDefault();
-
-		const select = this.state.isSelected ? 'business' : 'user';
 
 		const meal = {
 			name: this.state.name,
@@ -64,7 +82,7 @@ class Dashboard extends Component {
 								<b>Hey there,</b> {user.name}
 								<p className="flow-text grey-text text-darken-1">
 									You are logged into{' '}
-									<span style={{ fontFamily: 'monospace' }}>ReadyEats Business</span> as a {user.role}
+									<span style={{ fontFamily: 'monospace' }}>ReadyEats Business</span>
 								</p>
 							</h4>
 						</Col>
@@ -81,10 +99,12 @@ class Dashboard extends Component {
 				</Row>
 				<Row>
 					<Col>
-						<Menu />
+						<Menu
+							onSelect={this.onSelect.bind(this)}
+						/>
 					</Col>
 					<Col md={{ span: 3 }}>
-						<SelectedMeal />
+						{(this.state.hasMeal !== 0) && <SelectedMeal meal={this.state.selectedMeal} />}
 					</Col>
 				</Row>
 			</div>
@@ -92,16 +112,9 @@ class Dashboard extends Component {
 	}
 }
 
-Dashboard.propTypes = {
-	logoutUser: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired,
-	meal: PropTypes.object.isRequired,
-	addMeal: PropTypes.object.isRequired
-};
-
 const mapStateToProps = (state) => ({
 	auth: state.auth,
 	meal: state.meal
 });
 
-export default connect(mapStateToProps, { addMeal, getMeals, logoutUser })(Dashboard);
+export default connect(mapStateToProps, { addMeal, logoutUser })(Dashboard);

@@ -14,7 +14,6 @@ router.post("/setmeal", (req, res, next) => {
             });
         }
         const expTime = moment().startOf('day').add(24 + 15, 'hours').valueOf();
-
         const newMeal = new Meal({
             shopName: item.shopName,
             shopID: item.shopID,
@@ -27,14 +26,17 @@ router.post("/setmeal", (req, res, next) => {
             maxCount: item.maxCount
         });
 
-        newMeal.save()
-            .then((result) => {
-                res.status(200).json({
-                    success: true,
-                    document: result
-                });
-            })
-            .catch((err) => next(err));
+        Meal.deleteMany({ shopID: item.shopID }).then((result) => {
+            console.log(result);
+            newMeal.save()
+                .then((result) => {
+                    res.status(200).json({
+                        success: true,
+                        document: result
+                    });
+                })
+                .catch((err) => next(err));
+        });
     });
 });
 

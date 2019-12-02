@@ -1,46 +1,24 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Row, Col, Table, Image } from 'react-bootstrap';
-import { TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import Paper from '@material-ui/core/Paper';
+import { Col } from 'react-bootstrap';
 
-import DropZone from 'react-drop-zone';
-import Dropzone from '../layout/Dropzone';
 import { useSelector } from 'react-redux';
 
 import axios from 'axios';
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1
-	},
-	paper: {
-		padding: theme.spacing(2),
-		textAlign: 'center',
-		color: theme.palette.text.secondary
-	}
-}));
-
 export default function Upload(props) {
-	const classes = useStyles();
 
 	const business = useSelector((state) => state.auth.user);
-	const [ item, setItem ] = React.useState({
+	const [item, setItem] = React.useState({
 		shopName: business.name,
 		shopID: business.id,
 		name: '',
 		description: '',
 		type: 'meat'
 	});
-	const [ mealImg, setmealImg ] = React.useState(null);
-	const [ validated, setValidated ] = React.useState(false);
+	const [mealImg, setmealImg] = React.useState(null);
+	const [validated, setValidated] = React.useState(false);
 
 	const onChange = (event) => {
 		event.persist();
@@ -61,7 +39,7 @@ export default function Upload(props) {
 
 			newItem.append('imageData', mealImg);
 
-			for (let [ key, value ] of Object.entries(item)) {
+			for (let [key, value] of Object.entries(item)) {
 				newItem.append(key, value);
 			}
 
