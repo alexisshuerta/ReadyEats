@@ -12,33 +12,37 @@ import Typography from "@material-ui/core/Typography";
 
 class MealCard extends Component {
   render() {
-    const { meal } = this.props;
+    const { meal, onSelect, selectedMeal } = this.props;
     return (
       <div style={{ height: "50vh" }} className="container align-wrapper">
         <Card>
           <CardMedia
-            style={{ paddingTop: "64%" }}
-            image={require("../../img/burrito.jpg")}
+            style={{ paddingTop: "64%", objectFit: 'contain' }}
+            image={meal.imagePath}
             title="Burrito"
           />
-          <CardContent>
+          <CardContent style={{ height: "20vh" }}>
             <Typography gutterBottom variant="h5" component="h5">
               {meal.name}
             </Typography>
-            <Typography component="p">Super Taqueria</Typography>
+            <Typography component="h1"><b>{meal.shopName}</b></Typography>
+            <Typography component="p">{meal.description}</Typography>
+            <br></br>
+            <Typography component="p">{meal.type}</Typography>
+
           </CardContent>
           <CardActions>
-            <Button
+            {(selectedMeal !== meal._id) && <Button
               size="small"
               color="primary"
-              href="https://www.google.com/"
-              target="_blank"
+              variant="contained"
+              onClick={() => { onSelect(meal._id) }}
             >
-              Go to google
-            </Button>
+              Reserve
+            </Button>}
           </CardActions>
         </Card>
-      </div>
+      </div >
     );
   }
 }

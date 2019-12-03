@@ -39,17 +39,16 @@ class MealGrid extends Component {
       });
   }
 
-  onSelect = () => {
-    const type = '5de5ac2ec8b5583de56cc24a';
+  onSelect = (value) => {
     var final = this.state.meals.reduce(function (arr, v) {
-      if (v._id === type) return [v].concat(arr)
+      if (v._id === value) return [v].concat(arr)
       arr.push(v)
       return arr
     }, []);
     this.setState({
       ...this.state,
       meals: final,
-      selectedMeal: type
+      selectedMeal: value
     });
     console.log(this.state.selectedMeal);
   }
@@ -57,7 +56,6 @@ class MealGrid extends Component {
   render() {
     return (
       <div>
-        <div><Button onClick={this.onSelect}>BUTTON</Button></div>
         {this.state.meals ? (
           <div>
             <Grid
@@ -69,7 +67,11 @@ class MealGrid extends Component {
             >
               {this.state.meals.map((currentMeal, index) => (
                 < Grid key={index} item xs={12} sm={6} lg={4} xl={3} >
-                  <MealCard meal={currentMeal} />
+                  <MealCard
+                    meal={currentMeal}
+                    onSelect={this.onSelect}
+                    selectedMeal={this.state.selectedMeal}
+                  />
                 </Grid>
               ))}
             </Grid>
