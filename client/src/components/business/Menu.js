@@ -7,7 +7,7 @@ const moment = require("moment");
 export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
 	const [menu, setMenu] = React.useState([]);
-	const [date, setDate] = React.useState(moment().hour());
+	const date = moment().hour();
 
 	//cross the meal that selected
 	const getStyle = () => {

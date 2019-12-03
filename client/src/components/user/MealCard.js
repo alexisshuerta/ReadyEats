@@ -50,7 +50,7 @@ class MealCard extends Component {
             title="Burrito"
           />
           <CardContent>
-            <Typography gutterBottom variant="headline" component="h5">
+            <Typography gutterBottom variant="h5" component="h5">
               {this.props.mealName}
             </Typography>
             <Typography component="p">Super Taqueria</Typography>
