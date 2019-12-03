@@ -50,7 +50,7 @@ router.post("/reserve", (req, res, next) => {
 });
 
 router.get("/get", (req, res) => {
-    Reservation.find({ shopID: req.query.shopid }).then(results => {
+    Reservation.find({ shopID: req.query.shopid, isPickedup: false }).then(results => {
         res.status(200).json({ Reservations: results });
     }).catch((err) => {
         res.status(500).json({
