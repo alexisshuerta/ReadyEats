@@ -53,7 +53,7 @@ class MealGrid extends Component {
             >
               {this.state.meals.map(currentMeal => (
                 <Grid key={currentMeal.id} item xs={12} sm={6} lg={4} xl={3}>
-                  <MealCard mealName={currentMeal.mealName} />
+                  <MealCard meal={currentMeal} />
                 </Grid>
               ))}
             </Grid>

@@ -41,6 +41,8 @@ class MealCard extends Component {
         }
       }
     });
+
+    const { meal } = this.props;
     return (
       <div style={{ height: "50vh" }} className="container align-wrapper">
         <Card>
@@ -51,7 +53,7 @@ class MealCard extends Component {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h5">
-              {this.props.mealName}
+              {meal.mealName}
             </Typography>
             <Typography component="p">Super Taqueria</Typography>
           </CardContent>
