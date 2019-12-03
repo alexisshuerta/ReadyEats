@@ -8,12 +8,34 @@ import BusinessNav from './BusinessNav';
 
 import axios from 'axios';
 
-export default function Menu(props) {
-	const business = useSelector((state) => state.auth.user);
-	const [ customer, setPickup ] = React.useState([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
-	const [ meal ] = React.useState([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
+class Pickup extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			customers: [],
+			pickup: false
+		};
+	}
 
-	const getStyle = () => {
+	componentDidMount() {
+		axios
+			.get('/api/reservations/getreservation')
+			.then((res) => {
+				console.log(res.data.customers);
+				if (res.data.customers) {
+					this.setState({
+						...this.state,
+						customers: res.data.customers
+					});
+					this.setState({ pickup: true });
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
+	getStyle = () => {
 		return {
 			background: '#f4f4f4',
 			padding: '10px',
@@ -21,82 +43,74 @@ export default function Menu(props) {
 			// textDecoration: onSelected ? 'line-through' : 'none'
 		};
 	};
-
+	/* 
 	React.useEffect(() => {
-		axios
-			.get('/api/reservations/getreservation')
-			.then((res) => {
-				setPickup(res.data.customer);
-				console.log(res.data.customer);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
+		if (customer != null) {
+			axios
+				.get('/api/reservations/getreservation', {
+					params: {
+						customerID: customer.id
+					}
+				})
+				.then((res) => {
+					setPickup(res.data.customer);
+					console.log(res.data.customer);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		} else {
+			console.log('there is no customer');
+		}
+	}, []); */
+	render() {
+		return (
+			<div>
+				<BusinessNav />
+				{this.pickup ? (
+					<Fragment>
+						<Row style={this.getStyle()}>
+							<Col>
+								<Table striped bordered hover>
+									<thead>
+										<tr>
+											<th className="center-align">Customer</th>
+											<th className="center-align">Code</th>
 
-	return (
-		<div>
-			<BusinessNav />
-			<Fragment>
-				<Row style={getStyle()}>
-					<Col>
-						<Table striped bordered hover>
-							<thead>
-								<tr>
-									<th className="center-align">Customer</th>
-									<th className="center-align">Code</th>
+											<th className="center-align">Description</th>
+											<th className="center-align">Vegan</th>
+											<th className="center-align">Select</th>
+										</tr>
+									</thead>
 
-									<th className="center-align">Description</th>
-									<th className="center-align">Vegan</th>
-									<th className="center-align">Select</th>
-								</tr>
-							</thead>
+									<tbody>
+										{this.state.customers.map((order, index) => (
+											<tr key={index}>
+												<td className="center-align"> {order.name} </td>
+												<td className="center-align">
+													<img src={order.imagePath} style={{ width: 200, height: 100 }} />
+												</td>
 
-							{/* 	<tbody>
-								{menu.map((item, index) => (
-									<tr key={index}>
-										<td className="center-align"> {item.name} </td>
-										<td className="center-align">
-											<img src={item.imagePath} style={{ width: 200, height: 100 }} />
-										</td>
-
-										<td className="center-align"> {item.description} </td>
-										<td className="center-align"> {item.type} </td>
-										<td className="center-align">
-											<Button>Select</Button>
-										</td>
-									</tr>
-								))}
-							</tbody> */}
-						</Table>
-					</Col>
-					{/* <div>
-					<Col>
-						<Table striped bordered hover>
-							<thead>
-								<tr>
-									<th className="center-align">Meal of the day</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td className="center-align">
-										<Card style={{ width: '18rem' }}>
-											<Card.Img variant="top" />
-											<Card.Body>
-												<Card.Title>Meal Name</Card.Title>
-												<Card.Text>Description</Card.Text>
-												<Button variant="primary">Remove</Button>
-											</Card.Body>
-										</Card>
-									</td>
-								</tr>
-							</tbody>
-						</Table>
-					</Col>
-				</div> */}
-				</Row>
-			</Fragment>
-		</div>
-	);
+												<td className="center-align"> {order.description} </td>
+												<td className="center-align"> {order.type} </td>
+												<td className="center-align">
+													<Button>Select</Button>
+												</td>
+											</tr>
+										))}
+									</tbody>
+								</Table>
+							</Col>
+						</Row>
+					</Fragment>
+				) : (
+					<Fragment>
+						<h2>SORRY, NO ORDER YET</h2>
+					</Fragment>
+				)}
+			</div>
+		);
+	}
 }
+
+export default Pickup;
