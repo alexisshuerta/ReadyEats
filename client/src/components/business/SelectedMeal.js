@@ -31,7 +31,7 @@ export default function Menu(props) {
 				<tbody>
 					<tr>
 						<td className="center-align">
-							<Card style={{ width: '18rem', objectFit: 'contain' }}>
+							<Card style={{ width: '26rem', objectFit: 'contain', justify: 'center' }}>
 								<Card.Img variant="top" src={meal.imagePath} />
 								<Card.Body>
 									<Card.Title>{meal.name}</Card.Title>

@@ -16,15 +16,6 @@ router.post("/reserve", (req, res, next) => {
             });
         }
 
-        Reservation.deleteMany({ userID: req.body.userid })
-            .then(results => {
-                res.status(200).json({ DeletedReservation: results });
-            }).catch((err) => {
-                res.status(500).json({
-                    message: err.message || "Some error occurred while deleting existing reservation."
-                });
-            });
-
         const initPickupTime = moment(meal.expireAt).startOf('day').add(14, 'hours').valueOf();
         const confirmationCode = cryptoRandomString({ length: 8, type: 'url-safe' });
 
@@ -39,16 +30,22 @@ router.post("/reserve", (req, res, next) => {
             pickupTime: initPickupTime,
         });
 
-        newReservation.save()
-            .then((result) => {
+        Reservation.deleteMany({ userID: req.body.userid })
+            .then(results => {
                 console.log(result);
-                res.status(200).json({
-                    success: true,
-                    document: result
+                newReservation.save()
+                    .then((result) => {
+                        res.status(200).json({
+                            success: true,
+                            document: result
+                        });
+                    })
+                    .catch((err) => next(err));
+            }).catch((err) => {
+                res.status(500).json({
+                    message: err.message || "Setting the reservation."
                 });
-            })
-            .catch((err) => next(err));
-
+            });
     });
 });
 
@@ -73,12 +70,12 @@ router.get("/getreservation", (req, res) => {
     });
 });
 
-router.get("/getreservation", (req, res) => {
-    Reservation.find({ userID: req.query.userid }).then(results => {
+router.get("/pickup", (req, res) => {
+    Reservation.findOneAndUpdate({ userID: req.query.userid }, { isPickedup: true, pickupTime: moment().valueOf() }).then(results => {
         res.status(200).json({ Reservations: results });
     }).catch((err) => {
         res.status(500).json({
-            message: err.message || "Some error occurred while retrieving available meals."
+            message: err.message || "Some error occurred picking up meal."
         });
     });
 });

@@ -2,10 +2,12 @@ import React, { Fragment } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+const moment = require("moment");
 
 export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
 	const [menu, setMenu] = React.useState([]);
+	const [date, setDate] = React.useState(moment().hour());
 
 	//cross the meal that selected
 	const getStyle = () => {
@@ -75,7 +77,7 @@ export default function Menu(props) {
 								<td className="center-align"> {item.description} </td>
 								<td className="center-align"> {item.type} </td>
 								<td className="center-align">
-									<Button onClick={() => onSelected(item._id)}>Select</Button>
+									{(date >= 14) && (date <= 17) && <Button onClick={() => onSelected(item._id)}>Select</Button>}
 								</td>
 							</tr>
 						))}
