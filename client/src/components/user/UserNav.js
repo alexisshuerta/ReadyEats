@@ -20,7 +20,6 @@ class UserNav extends Component {
 				<Navbar collapseOnSelect expand="lg" bg="primary" variant="light">
 					<Navbar.Brand className="material-icons">fastfood </Navbar.Brand>
 					<Navbar.Brand href="/dashboard">ReadyEats</Navbar.Brand>
-					<Nav.Link href="/dashboard/pickup">Pickup</Nav.Link>
 
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav">

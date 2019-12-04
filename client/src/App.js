@@ -15,7 +15,6 @@ import PrivateRoute from './components/private-route/PrivateRoute';
 import Dashboard from './components/user/Dashboard';
 import BusinessDashboard from './components/business/Dashboard';
 import Pickup from './components/business/Pickup';
-import userPickup from './components/user/Pickup';
 //testing
 import Upload from './components/business/tempUpload';
 
@@ -46,7 +45,6 @@ class App extends Component {
 						<Route exact path="/register" component={Register} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/businessdashboard/pickup" component={Pickup} />
-						<Route exact path="/dashboard/pickup" component={userPickup} />
 
 						<Route exact path="/upload" component={Upload} />
 

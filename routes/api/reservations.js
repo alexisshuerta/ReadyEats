@@ -73,8 +73,8 @@ router.get("/getreservation", (req, res) => {
 });
 
 router.get("/pickup", (req, res) => {
-    Reservation.findOneAndUpdate({ userID: req.query.userid }, { isPickedup: true, pickupTime: moment().valueOf() }).then(results => {
-        res.status(200).json({ Reservations: results });
+    Reservation.findOneAndUpdate({ userID: req.query.userid }, { isPickedup: true, pickupTime: moment().valueOf() }, { new: true }).then(results => {
+        res.status(200).json(results);
     }).catch((err) => {
         res.status(500).json({
             message: err.message || "Some error occurred picking up meal."

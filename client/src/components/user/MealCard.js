@@ -36,7 +36,7 @@ class MealCard extends Component {
             <Typography component="p">{meal.type}</Typography>
 
           </CardContent>
-          <CardActions>
+          {!(this.props.selectedMeal.isPickedup) && <CardActions>
             {((this.props.currTime >= 17) || (this.props.currTime <= 9)) && (selectedMeal.itemID !== meal._id) && <Button
               size="small"
               color="primary"
@@ -45,8 +45,16 @@ class MealCard extends Component {
             >
               Reserve
             </Button>}
-
-          </CardActions>
+            {(selectedMeal.itemID === meal._id) && <Button
+              size="medium"
+              color="secondary"
+              variant="contained"
+              disabled={!((this.props.currTime >= 11) || (this.props.currTime <= 14))}
+              onClick={() => { this.props.handlePickup() }}
+            >
+              Pickup
+            </Button>}
+          </CardActions>}
         </Card>
       </div >
     );

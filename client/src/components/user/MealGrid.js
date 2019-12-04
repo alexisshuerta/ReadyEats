@@ -55,7 +55,7 @@ class MealGrid extends Component {
   }
 
   render() {
-    const orderedMeal = this.orderList(this.state.meals, this.props.reservedMeal.itemID);
+    const orderedMeal = this.props.reservedMeal ? this.orderList(this.state.meals, this.props.reservedMeal.itemID) : this.state.meals;
 
     return (
       <div>
@@ -73,6 +73,7 @@ class MealGrid extends Component {
                   <MealCard
                     meal={currentMeal}
                     onSelect={this.onSelect}
+                    handlePickup={this.props.handlePickup}
                     selectedMeal={this.props.reservedMeal}
                     currTime={this.props.currTime}
                   />
