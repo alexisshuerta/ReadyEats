@@ -6,6 +6,7 @@ import { Table, Button, Container, Row, Col, Card, Image } from 'react-bootstrap
 import { useSelector } from 'react-redux';
 import UserNav from './UserNav';
 
+import Timer from './Timer';
 import axios from 'axios';
 
 class Pickup extends Component {
@@ -24,7 +25,7 @@ class Pickup extends Component {
 
 	componentDidMount() {
 		axios
-			.get('/api/reservations/get')
+			.get('/api/reservations/pickup')
 			.then((res) => {
 				console.log(res.data.meal);
 				if (res.data.meal) {
@@ -62,6 +63,7 @@ class Pickup extends Component {
 	}, []); */
 	render() {
 		const { user } = this.props.auth;
+
 		return (
 			<div>
 				<UserNav />
@@ -81,12 +83,12 @@ class Pickup extends Component {
 								<Table striped bordered hover>
 									<thead>
 										<tr>
-											<th className="center-align">Customer</th>
+											<th className="center-align">Name</th>
 											<th className="center-align">Code</th>
 
 											<th className="center-align">Description</th>
-											<th className="center-align">Vegan</th>
-											<th className="center-align">Select</th>
+											<th className="center-align">Dietary</th>
+											<th className="center-align">Pickup</th>
 										</tr>
 									</thead>
 
@@ -101,13 +103,16 @@ class Pickup extends Component {
 												<td className="center-align"> {order.description} </td>
 												<td className="center-align"> {order.type} </td>
 												<td className="center-align">
-													<Button>Pickup</Button>
+													<Button onClick={this.onPickup}>Select</Button>
 												</td>
 											</tr>
 										))}
 									</tbody>
 								</Table>
 							</Col>
+						</Row>
+						<Row>
+							<Timer />
 						</Row>
 					</Fragment>
 				) : (
