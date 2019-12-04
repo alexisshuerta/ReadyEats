@@ -19,7 +19,11 @@ class Pickup extends Component {
 
 	componentDidMount() {
 		axios
-			.get('/api/reservations/getreservation')
+			.get('/api/reservations/get', {
+				params: {
+					shopID: this.props.auth.user.id
+				}
+			})
 			.then((res) => {
 				console.log(res.data.customers);
 				if (res.data.customers) {
@@ -67,8 +71,7 @@ class Pickup extends Component {
 		return (
 			<div>
 				<BusinessNav />
-				{/* 				{this.pickup ? (
- */}{' '}
+				{/* {this.pickup ? ( */}
 				<Fragment>
 					<Row style={this.getStyle()}>
 						<Col>
@@ -104,14 +107,23 @@ class Pickup extends Component {
 						</Col>
 					</Row>
 				</Fragment>
-				{/* 		) : (
-					<Fragment>
-						<h2>SORRY, NO ORDER YET</h2>
-					</Fragment>
-				)} */}
+				// ) : (
+				<Fragment>
+					<h2>SORRY, NO ORDER YET</h2>
+				</Fragment>
+				)}
 			</div>
 		);
 	}
 }
 
-export default Pickup;
+Pickup.propTypes = {
+	logoutUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps, { logoutUser })(Pickup);
