@@ -53,7 +53,7 @@ router.post("/reserve", (req, res, next) => {
 
 router.get("/get", (req, res) => {
     Reservation.find({ shopID: req.query.shopid, isPickedup: false }).then(results => {
-        res.status(200).json({ Reservations: results });
+        res.status(200).json({ reservations: results });
     }).catch((err) => {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving reservations."

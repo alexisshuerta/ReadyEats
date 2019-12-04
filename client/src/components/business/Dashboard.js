@@ -7,6 +7,7 @@ import BusinessNav from './BusinessNav';
 import BusinessForm from './BusinessForm';
 import SelectedMeal from './SelectedMeal';
 import Menu from './Menu';
+import Pickup from './Pickup';
 import { addMeal } from '../../actions/mealActions';
 import axios from "axios";
 
@@ -103,6 +104,7 @@ class Dashboard extends Component {
 							onSelect={this.onSelect.bind(this)}
 						/>
 					</Col>
+
 					<Col md={{ span: 3 }}>
 						{(this.state.hasMeal !== 0) && <SelectedMeal meal={this.state.selectedMeal} />}
 					</Col>
