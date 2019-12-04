@@ -7,7 +7,6 @@ import BusinessNav from './BusinessNav';
 import BusinessForm from './BusinessForm';
 import SelectedMeal from './SelectedMeal';
 import Menu from './Menu';
-import Pickup from './Pickup';
 import { addMeal } from '../../actions/mealActions';
 import axios from "axios";
 
