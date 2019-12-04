@@ -18,6 +18,10 @@ const ReservationSchema = new Schema({
         type: String,
         required: true
     },
+    itemID: {
+        type: String,
+        required: true
+    },
     imagePath: {
         type: String,
         required: true

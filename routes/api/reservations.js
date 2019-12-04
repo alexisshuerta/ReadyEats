@@ -23,15 +23,16 @@ router.post("/reserve", (req, res, next) => {
             username: req.body.username,
             userID: req.body.userid,
             shopID: meal.shopID,
-            itemName: meal.imageName,
-            imagePath: meal.path,
+            itemName: meal.name,
+            itemID: req.body.mealid,
+            imagePath: meal.imagePath,
             code: confirmationCode,
             isPickedup: false,
             pickupTime: initPickupTime,
         });
 
         Reservation.deleteMany({ userID: req.body.userid })
-            .then(results => {
+            .then(result => {
                 console.log(result);
                 newReservation.save()
                     .then((result) => {
@@ -42,6 +43,7 @@ router.post("/reserve", (req, res, next) => {
                     })
                     .catch((err) => next(err));
             }).catch((err) => {
+                console.log(err);
                 res.status(500).json({
                     message: err.message || "Setting the reservation."
                 });
@@ -62,7 +64,7 @@ router.get("/get", (req, res) => {
 
 router.get("/getreservation", (req, res) => {
     Reservation.find({ userID: req.query.userid }).then(results => {
-        res.status(200).json({ Reservations: results });
+        res.status(200).json(results);
     }).catch((err) => {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving available meals."

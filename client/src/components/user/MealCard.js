@@ -37,7 +37,7 @@ class MealCard extends Component {
 
           </CardContent>
           <CardActions>
-            {((this.props.currTime >= 17) || (this.props.currTime <= 9)) && (selectedMeal !== meal._id) && <Button
+            {((this.props.currTime >= 17) || (this.props.currTime <= 9)) && (selectedMeal.itemID !== meal._id) && <Button
               size="small"
               color="primary"
               variant="contained"
@@ -45,7 +45,7 @@ class MealCard extends Component {
             >
               Reserve
             </Button>}
-            
+
           </CardActions>
         </Card>
       </div >
