@@ -12,7 +12,7 @@ class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
-      reservedMeal: {},
+      reservedMeal: "",
       currTime: moment().hour()
     };
   }
@@ -22,6 +22,26 @@ class Dashboard extends Component {
     this.props.logoutUser();
   };
 
+  handleReserve = (value) => {
+    this.setState({
+      ...this.state,
+      reservedMeal: value
+    });
+    console.log(this.state.reservedMeal);
+  }
+
+  componentDidMount() {
+    this.intervalID = setInterval(() => {
+      this.setState({
+        ...this.state,
+        currTime: moment().hour()
+      });
+    }, 1000 * 60);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
 
   render() {
     const { user } = this.props.auth;
@@ -44,7 +64,13 @@ class Dashboard extends Component {
             </div>
           </div>
           {}
-          {(this.state.currTime >= 16 || this.state.currTime <= 9) ? <MealGrid /> : <Waiting />}
+          {(this.state.currTime >= 16 || this.state.currTime <= 9) ?
+            <MealGrid
+              currTime={this.state.currTime}
+              handleReserve={this.handleReserve.bind(this)}
+              reservedMeal={this.state.reservedMeal}
+            />
+            : <Waiting />}
         </div>
       </div>
     );

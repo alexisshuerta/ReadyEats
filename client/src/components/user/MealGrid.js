@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
 
 // import * as contentful from "contentful";
@@ -18,7 +17,6 @@ class MealGrid extends Component {
         { mealName: "Salad", id: 5 },
         { mealName: "Taco Salad", id: 6 }
       ],
-      selectedMeal: ""
     };
   }
 
@@ -26,7 +24,6 @@ class MealGrid extends Component {
     axios
       .get('/api/meals/get')
       .then((res) => {
-        console.log(res.data.meals)
         if (res.data.meals) {
           this.setState({
             ...this.state,
@@ -48,9 +45,8 @@ class MealGrid extends Component {
     this.setState({
       ...this.state,
       meals: final,
-      selectedMeal: value
     });
-    console.log(this.state.selectedMeal);
+    this.props.handleReserve(value);
   }
 
   render() {
@@ -70,7 +66,8 @@ class MealGrid extends Component {
                   <MealCard
                     meal={currentMeal}
                     onSelect={this.onSelect}
-                    selectedMeal={this.state.selectedMeal}
+                    selectedMeal={this.props.reservedMeal}
+                    currTime={this.props.currTime}
                   />
                 </Grid>
               ))}
