@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class Navbar extends Component {
 	render() {
 		return (
-			<div className="navbar-fixed">
+			<div className="center-align">
 				<nav className="z-depth-0">
 					<div className="nav-wrapper  white">
 						<Link
@@ -14,7 +14,7 @@ class Navbar extends Component {
 							}}
 							className="col s5 brand-logo center black-text"
 						>
-							<i className="material-icons ">fastfood</i>
+							<i className="material-icons">fastfood</i>
 							ReadyEats
 						</Link>
 					</div>

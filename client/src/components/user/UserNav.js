@@ -6,42 +6,43 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 
 class UserNav extends Component {
-    static propTypes = {
-        isAuthenticated: PropTypes.bool
-    };
-    onLogoutClick = (e) => {
-        e.preventDefault();
-        this.props.logoutUser();
-    };
+	static propTypes = {
+		isAuthenticated: PropTypes.bool
+	};
+	onLogoutClick = (e) => {
+		e.preventDefault();
+		this.props.logoutUser();
+	};
 
-    render() {
-        return (
-            <div className="navbar-fixed">
-                <Navbar collapseOnSelect expand="lg" bg="primary" variant="light">
-                    <Navbar.Brand className="material-icons">fastfood </Navbar.Brand>
-                    <Navbar.Brand href="/dashboard">ReadyEats</Navbar.Brand>
+	render() {
+		return (
+			<div className="navbar-fixed">
+				<Navbar collapseOnSelect expand="lg" bg="primary" variant="light">
+					<Navbar.Brand className="material-icons">fastfood </Navbar.Brand>
+					<Navbar.Brand href="/dashboard">ReadyEats</Navbar.Brand>
+					<Nav.Link href="/dashboard/pickup">Pickup</Nav.Link>
 
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="mr-auto" />
-                        <Nav>
-                            <Nav.Link onClick={this.onLogoutClick} href="/">
-                                Logout
+					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+					<Navbar.Collapse id="responsive-navbar-nav">
+						<Nav className="mr-auto" />
+						<Nav>
+							<Nav.Link onClick={this.onLogoutClick} href="/">
+								Logout
 							</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
-            </div>
-        );
-    }
+						</Nav>
+					</Navbar.Collapse>
+				</Navbar>
+			</div>
+		);
+	}
 }
 UserNav.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+	logoutUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+	auth: state.auth
 });
 
 export default connect(mapStateToProps, { logoutUser })(UserNav);
