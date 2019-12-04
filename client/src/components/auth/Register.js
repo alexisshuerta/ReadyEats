@@ -16,7 +16,8 @@ class Register extends Component {
 			password: '',
 			password2: '',
 			isBusiness: false,
-			errors: {}
+			errors: {},
+			paypal: false
 		};
 		this.toggleChange = this.toggleChange.bind(this);
 	}
@@ -33,6 +34,11 @@ class Register extends Component {
 				errors: nextProps.errors
 			});
 		}
+	}
+
+	handlePaypal = (e) => {
+		e.preventDefault();
+		this.setState({ paypal: true })
 	}
 
 	onChange = (e) => {
@@ -165,10 +171,27 @@ class Register extends Component {
 										letterSpacing: '1.5px',
 										marginTop: '3rem'
 									}}
+									disabled={this.state.paypal}
+									className="btn btn-large waves-effect waves-light hoverable grey accent-3"
+									onClick={this.handlePaypal}
+								>
+									Paypal
+								</button>
+							</div>
+							<div className="col s12" style={{ paddingLeft: '11.250px' }}>
+								<button
+									style={{
+										width: '150px',
+										borderRadius: '3px',
+										letterSpacing: '1.5px',
+										marginTop: '3rem'
+									}}
+									disabled={!(this.state.paypal)}
 									type="submit"
 									className="btn btn-large waves-effect waves-light hoverable blue accent-3"
 								>
 									Sign up
+									<i className="material-icons right">send</i>
 								</button>
 							</div>
 						</form>
