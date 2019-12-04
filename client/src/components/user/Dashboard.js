@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import UserNav from "./UserNav";
 import moment from "moment";
+import axios from "axios";
 
 import MealGrid from "./MealGrid";
 import Waiting from "./Waiting";
@@ -12,7 +13,7 @@ class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
-      reservedMeal: "",
+      reservedMeal: {},
       currTime: moment().hour()
     };
   }
@@ -23,14 +24,44 @@ class Dashboard extends Component {
   };
 
   handleReserve = (value) => {
-    this.setState({
-      ...this.state,
-      reservedMeal: value
-    });
-    console.log(this.state.reservedMeal);
+    const result = {
+      mealid: value,
+      userid: this.props.auth.user.id,
+      username: this.props.auth.user.name
+    };
+
+    axios
+      .post('/api/reservations/reserve', result)
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          reservedMeal: res.data.document
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   componentDidMount() {
+    axios
+      .get('/api/reservations/getreservation', {
+        params: {
+          userid: this.props.auth.user.id
+        }
+      })
+      .then((res) => {
+        if (res.data[0]) {
+          this.setState({
+            ...this.state,
+            reservedMeal: res.data[0]
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     this.intervalID = setInterval(() => {
       this.setState({
         ...this.state,

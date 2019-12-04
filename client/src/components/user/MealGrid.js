@@ -36,20 +36,27 @@ class MealGrid extends Component {
       });
   }
 
-  onSelect = (value) => {
-    var final = this.state.meals.reduce(function (arr, v) {
+  orderList = (list, value) => {
+    let final = list.reduce(function (arr, v) {
       if (v._id === value) return [v].concat(arr)
       arr.push(v)
       return arr
     }, []);
+    return final;
+  }
+
+  onSelect = (value) => {
+    /*var final = this.orderList(this.state.meals, value);
     this.setState({
       ...this.state,
       meals: final,
-    });
+    });*/
     this.props.handleReserve(value);
   }
 
   render() {
+    const orderedMeal = this.orderList(this.state.meals, this.props.reservedMeal.itemID);
+
     return (
       <div>
         {this.state.meals ? (
@@ -61,7 +68,7 @@ class MealGrid extends Component {
               alignItems="center"
               style={{ padding: 8 }}
             >
-              {this.state.meals.map((currentMeal, index) => (
+              {orderedMeal.map((currentMeal, index) => (
                 < Grid key={index} item xs={12} sm={6} lg={4} xl={3} >
                   <MealCard
                     meal={currentMeal}
@@ -77,7 +84,7 @@ class MealGrid extends Component {
             "No meals yet"
           )
         }
-      </div>
+      </ div>
     );
   }
 }
