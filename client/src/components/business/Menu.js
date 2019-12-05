@@ -8,6 +8,7 @@ export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
 	const [menu, setMenu] = React.useState([]);
 	const date = moment().hour();
+	console.log(date)
 
 	//cross the meal that selected
 	const getStyle = () => {
@@ -85,8 +86,8 @@ export default function Menu(props) {
 								<td className="center-align"> {item.description} </td>
 								<td className="center-align"> {item.type} </td>
 								<td className="center-align">
-									{date >= 14 &&
-										date <= 17 && <Button onClick={() => onSelected(item._id)}>Select</Button>}
+									{((date >= 14) &&
+										(date <= 17)) && <Button onClick={() => onSelected(item._id)}>Select</Button>}
 								</td>
 							</tr>
 						))}
@@ -103,8 +104,8 @@ export default function Menu(props) {
 							<td className="center-align"> {props.addedItem.description} </td>
 							<td className="center-align"> {props.addedItem.type} </td>
 							<td className="center-align">
-								{date >= 14 &&
-									date <= 17 && <Button onClick={() => onSelected(props.addedItem._id)}>Select</Button>}
+								{((date >= 14) &&
+									(date <= 17)) && <Button onClick={() => onSelected(props.addedItem._id)}>Select</Button>}
 							</td>
 						</tr>}
 					</tbody>
