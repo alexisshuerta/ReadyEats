@@ -21,6 +21,7 @@ class Dashboard extends Component {
 			hasMeal: 0,
 			errors: {},
 			selectedMeal: {},
+			addedItem: {}
 		};
 	}
 	componentDidMount() {
@@ -56,6 +57,15 @@ class Dashboard extends Component {
 			selectedMeal: meal
 		});
 	};
+
+	handleItem = (value) => {
+		console.log(value);
+		this.setState({
+			...this.state,
+			addedItem: value
+		});
+	}
+
 	onSubmit = (e) => {
 		e.preventDefault();
 
@@ -91,7 +101,9 @@ class Dashboard extends Component {
 				<div>
 					<h4>Fill in your new meal here</h4>
 				</div>
-				<BusinessForm />
+				<BusinessForm
+					addItem={this.handleItem}
+				/>
 				<Row>
 					<Col>
 						<h4>Your list of meals</h4>
@@ -101,6 +113,7 @@ class Dashboard extends Component {
 					<Col>
 						<Menu
 							onSelect={this.onSelect.bind(this)}
+							addedItem={this.state.addedItem}
 						/>
 					</Col>
 

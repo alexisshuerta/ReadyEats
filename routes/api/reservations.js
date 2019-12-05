@@ -33,7 +33,6 @@ router.post("/reserve", (req, res, next) => {
 
         Reservation.deleteMany({ userID: req.body.userid })
             .then(result => {
-                console.log(result);
                 newReservation.save()
                     .then((result) => {
                         res.status(200).json({

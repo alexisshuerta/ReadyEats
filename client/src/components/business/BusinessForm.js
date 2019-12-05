@@ -46,7 +46,7 @@ export default function Upload(props) {
 			axios
 				.post('/api/menu/upload', newItem)
 				.then((res) => {
-					console.log(res.data);
+					props.addItem(res.data.document);
 				})
 				.catch((err) => {
 					console.log(err);

@@ -6,7 +6,7 @@ const moment = require('moment');
 
 export default function Menu(props) {
 	const business = useSelector((state) => state.auth.user);
-	const [ menu, setMenu ] = React.useState([]);
+	const [menu, setMenu] = React.useState([]);
 	const date = moment().hour();
 
 	//cross the meal that selected
@@ -35,7 +35,7 @@ export default function Menu(props) {
 					console.log(err);
 				});
 		},
-		[ business.id ]
+		[business.id]
 	);
 
 	const onSelected = (event) => {
@@ -53,6 +53,7 @@ export default function Menu(props) {
 				console.log(err);
 			});
 	};
+
 
 	return (
 		<div style={getStyle()}>
@@ -85,10 +86,27 @@ export default function Menu(props) {
 								<td className="center-align"> {item.type} </td>
 								<td className="center-align">
 									{date >= 14 &&
-									date <= 17 && <Button onClick={() => onSelected(item._id)}>Select</Button>}
+										date <= 17 && <Button onClick={() => onSelected(item._id)}>Select</Button>}
 								</td>
 							</tr>
 						))}
+						{(props.addedItem._id) && <tr key={1234}>
+							<td className="center-align"> {props.addedItem.name} </td>
+							<td className="center-align">
+								<img
+									src={props.addedItem.imagePath}
+									alt=""
+									style={{ width: 200, height: 100, objectFit: 'contain' }}
+								/>
+							</td>
+
+							<td className="center-align"> {props.addedItem.description} </td>
+							<td className="center-align"> {props.addedItem.type} </td>
+							<td className="center-align">
+								{date >= 14 &&
+									date <= 17 && <Button onClick={() => onSelected(props.addedItem._id)}>Select</Button>}
+							</td>
+						</tr>}
 					</tbody>
 				</Table>
 			</Fragment>
